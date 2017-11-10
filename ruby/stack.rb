@@ -8,62 +8,61 @@ class Stack
 
 
   def push item
-    if self.size == 0
-      self.items[0] = item
+    if @size == 0
+      @items[0] = item
+      @size = @size + 1
     else
-      allItems = self.items.values
+      allItems = @items.values
       allItems.unshift(item)
-      self.size = self.size + 1
+      @size = @size + 1
 
       allItems.each_with_index do |el, i|
-        self.items[i] = el
+        @items[i] = el
       end
     end
   end
 
 
-  def self.pop
-    topObject = ''
+  def pop
+    top_object = ''
+    all_items = @items.values
+    top_object = all_items[0]
+    ze_items = all_items[1..all_items.length]
 
-    allItems = self.items.values
-    topObject = allItems[0]
-    zeItems = allItems[1..allItems.length - 1]
-
-    zeItems.each_with_index do |el, i|
-      self.items[i] = el
+    ze_items.each_with_index do |el, i|
+      @items[i] = el
     end
 
-    delete self.items[self.size - 1]
 
-    self.size = self.size - 1
-
-    topObject
+    @items.delete(@size - 1)
+    @size = @size - 1
+    top_object
   end
 
 
-  def self.peek
-    self.items[0]
+  def peek
+    @items[0]
   end
 
 
-  def self.is_empty?
-    self.size  === 0 ? true : false
+  def is_empty?
+    @size  === 0 ? true : false
   end
 
 
-  def self.clear
-    self.items = {}
-    self.size = 0
+  def clear
+    @items = {}
+    @size = 0
   end
 
 
-  def self.stack_size
-    self.size
+  def stack_size
+    @size
   end
 
 
-  def self.to_array
-    self.items.values
+  def to_array
+    @items.values
   end
 
 end
