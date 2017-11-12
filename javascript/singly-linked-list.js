@@ -1,7 +1,7 @@
 let Node = function(data){
   this.data = data;
   this.next = null;
-}
+};
 
 
 
@@ -9,6 +9,50 @@ let LinkedList = function(){
   this.head = null;
   this.length = 0;
   this.tail = null;
+};
+
+
+LinkedList.prototype.removeDupsAndReInitialize = function(){
+  if (!this.head || !this.head.next) {
+    throw new Error('No duplicates were found. Empty or a single element Linked List.');
+  }
+
+  var p1;
+  var p2;
+  var nodes = {};
+
+  p1 = this.head;
+  p2 = p1.next;
+  nodes[p1.data] = [true, p1.data];
+  var uniq = [p1.data];
+
+  while (p2) {
+    var data = p2.data;
+    if (nodes[data]) {
+        p1.next = p2.next;
+    } else {
+        nodes[data] = [true, data];
+        uniq.push(data);
+        p1 = p2;
+    }
+    p2 = p2.next;
+  }
+
+  let freshLL = new LinkedList();
+
+  for(let i = 0; i < uniq.length; i++){
+    freshLL.add(uniq[i]);
+  }
+
+  this.head = null;
+  this.length = null;
+  this.tail = null;
+  delete this.head;
+  delete this.tail;
+  delete this.length;
+  console.log("UNIQ POSITIONS ARE: ", uniq);
+
+  return freshLL;
 };
 
 
@@ -36,7 +80,7 @@ LinkedList.prototype.add = function(data){
 };
 
 
-LinkedList.prototype.search = function(position){
+LinkedList.prototype.searchByPosition = function(position){
   let currentNode = this.head;
   let length = this.length;
   let count = 1;
@@ -52,6 +96,29 @@ LinkedList.prototype.search = function(position){
   }
 
   return currentNode;
+};
+
+
+LinkedList.prototype.contains = function(target) {
+    var status = false;
+    if(this.head === null){
+      return status;
+    } else if(this.head !== null){
+      var current = this.head;
+      while(current.next !== null){
+        if(this.head.data === target){
+        return true;
+      }
+      current = current.next;
+      if(current.data === target){
+        status = true;
+        return status;
+      } else {
+        return false;
+      }
+    }
+    return status;
+  }
 };
 
 
@@ -88,7 +155,8 @@ LinkedList.prototype.remove = function(position){
   beforeNodeToDelete.next = nodeToDelete.next;
   deletedNode = nodeToDelete;
   nodeToDelete = null;
-  this.length--;
+  this.length = this.length - 1;
 
   return deletedNode;
 };
+
