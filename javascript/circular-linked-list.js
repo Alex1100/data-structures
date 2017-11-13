@@ -4,14 +4,14 @@ let Node = function(data){
 };
 
 
-let DoublyLinkedList = function(){
+let CircularDoublyLinkedList = function(){
   this.head = null;
   this.length = 0;
   this.tail = null;
 };
 
 
-DoublyLinkedList.prototype.removeDupsAndReInitialize = function(){
+CircularDoublyLinkedList.prototype.removeDupsAndReInitialize = function(){
   if (!this.head || !this.head.next) {
     throw new Error('No duplicates were found. Empty or a single element Linked List.');
   }
@@ -40,7 +40,7 @@ DoublyLinkedList.prototype.removeDupsAndReInitialize = function(){
     }
   }
 
-  let freshLL = new DoublyLinkedList();
+  let freshLL = new CircularDoublyLinkedList();
 
   for(let i = 0; i < uniq.length; i++){
     freshLL.add(uniq[i]);
@@ -57,7 +57,7 @@ DoublyLinkedList.prototype.removeDupsAndReInitialize = function(){
 };
 
 
-DoublyLinkedList.prototype.add = function(data){
+CircularDoublyLinkedList.prototype.add = function(data){
   let newNode = new Node(data);
 
   if(this.head === null){
@@ -86,7 +86,7 @@ DoublyLinkedList.prototype.add = function(data){
 };
 
 
-DoublyLinkedList.prototype.searchByPosition = function(position){
+CircularDoublyLinkedList.prototype.searchByPosition = function(position){
   let currentNode = this.head;
   let length = this.length;
   let count = 1;
@@ -105,7 +105,7 @@ DoublyLinkedList.prototype.searchByPosition = function(position){
 };
 
 
-DoublyLinkedList.prototype.get = function(input){
+CircularDoublyLinkedList.prototype.get = function(input){
   let current = this.head;
   while(current !== null){
     if(current.data === input){
@@ -120,12 +120,12 @@ DoublyLinkedList.prototype.get = function(input){
 };
 
 
-DoublyLinkedList.prototype.contains = function(input) {
+CircularDoublyLinkedList.prototype.contains = function(input) {
   return this.get(input) !== null ? true : false;
 };
 
 
-DoublyLinkedList.prototype.removeByInput = function(input){
+CircularDoublyLinkedList.prototype.removeByInput = function(input){
   var target = this.get(input);
   if(target === null){
     return target;
