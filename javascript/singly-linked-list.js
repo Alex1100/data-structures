@@ -99,26 +99,20 @@ LinkedList.prototype.searchByPosition = function(position){
 };
 
 
-LinkedList.prototype.contains = function(target) {
-    var status = false;
-    if(this.head === null){
-      return status;
-    } else if(this.head !== null){
-      var current = this.head;
-      while(current.next !== null){
-        if(this.head.data === target){
-        return true;
-      }
-      current = current.next;
-      if(current.data === target){
-        status = true;
-        return status;
-      } else {
-        return false;
-      }
+LinkedList.prototype.get = function(input){
+  var current = this.head;
+  while(current !== null){
+    if(current.data === input){
+      return current;
     }
-    return status;
+    current = current.next;
   }
+  return current;
+};
+
+
+LinkedList.prototype.contains = function(input) {
+  return this.get(input) === null ? false : true;
 };
 
 
