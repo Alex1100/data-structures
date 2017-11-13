@@ -9,13 +9,52 @@ end
 
 
 class LinkedList
-  attr_reader :head, :tail, :length
+  attr_accessor :head, :tail, :length
 
 
   def initialize(head, tail, length)
     @head, @tail, @length = head, tail, length
   end
 
+
+  def remove_dups_and_reinitialize
+    if !@head || !@head.next_in_line
+      raise 'No duplicates were found. Empty or a single element Linked List.'
+    end
+
+    p1 = ''
+    p2 = ''
+    nodes = {}
+
+    p1 = @head
+    p2 = p1.next_in_line
+    nodes[p1.data] = [true, p1.data]
+    uniq = [p1.data]
+
+    while (p2)
+      info = p2.data
+      if nodes[info]
+        p1.next_in_line = p2.next_in_line
+      else
+        nodes[info] = [true, info]
+        uniq << info
+        p1 = p2
+      end
+      p2 = p2.next_in_line
+    end
+
+    freshLL = LinkedList.new(nil, nil, 0);
+
+    uniq.each do |el, i|
+      freshLL.add(el);
+    end
+
+    @head = nil;
+    @length = nil;
+    @tail = nil;
+
+    freshLL;
+  end
 
 
   def add(data)
@@ -38,32 +77,73 @@ class LinkedList
       @tail = current.next_in_line
       @length = @length + 1
 
-      return new_node
+      new_node
     end
   end
 
 
 
-  def search(position)
-    currentNode = @head
+  def search_by_position(position)
+    current_node = @head
     len = @length
     count = 1
     message = 'Non-Existent Node'
 
-    if(len === 0 || position < 1 || position > len)
+    if(len == 0 || position < 1 || position > len)
       raise message
     end
 
     while(count < position)
-      currentNode = currentNode.next_in_line
+      current_node = current_node.next_in_line
       count = count + 1
     end
 
-    return currentNode
+    return current_node
+  end
+
+  def get_item(input)
+    current = @head
+    while current != nil
+      if current.data == input
+        return current
+      end
+      current = current.next_in_line
+    end
+    return current
+  end
+
+  def contains(input)
+    self.get_item(input) != nil ? true : false
   end
 
 
-  def remove(position)
+  def remove_by_input(input)
+    if self.get_item(input) == nil
+      return nil
+    end
+
+    if @head.data == input
+      @head = @head.next_in_line
+      return
+    end
+
+    node = self.find_before(input)
+    node.next_in_line = node.next_in_line.next_in_line
+  end
+
+  def find_before(input)
+    node = @head
+
+    return false if !node.next_in_line
+    return node if node.next_in_line.data == input
+
+    while (node = node.next_in_line)
+      return node if node.next_in_line && node.next_in_line.data == input
+    end
+  end
+
+
+  def remove_by_position(position)
     current_node = @head
     len = @length
     count = 0
@@ -77,7 +157,7 @@ class LinkedList
       raise message
     end
 
-    if(position === 1)
+    if(position == 1)
       @head = current_node.next_in_line
       deleted_node = current_node
       current_node = nil
