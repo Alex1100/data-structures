@@ -1,7 +1,7 @@
 let Node = function(data){
   this.data = data;
   this.next = null;
-}
+};
 
 
 
@@ -17,6 +17,8 @@ LinkedList.prototype.add = function(data){
 
   if(this.head === null){
     this.head = newNode;
+    this.head.prev = null;
+    this.head.next = null;
     this.tail = this.head;
     this.length++;
 
@@ -24,23 +26,16 @@ LinkedList.prototype.add = function(data){
   }
 
   let current = this.head;
-  let count = 0;
 
   while(current.next !== null){
-    if(count > 0){
-      current.prev = current;
-    } else {
-      current.prev = null;
-    }
     current = current.next;
-    current.prev.next.next = current;
-    count++;
   }
 
   current.next = newNode;
-  current.next.prev = Object.assign({}, current);
-  this.tail = current.next;
-  this.tail.prev.next = Object.assign({}, current.next);
+  current.next.prev = current;
+  current = current.next;
+  this.tail = Object.assign({}, current.next);
+  this.tail.prev = Object.assign({}, current);
   this.length++;
   return newNode;
 };
