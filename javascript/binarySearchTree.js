@@ -39,16 +39,16 @@ binarySearchTreeMethods.insert = function(input){
 binarySearchTreeMethods.contains = function(input){
   var result = false;
 
-  var helper = function(input) {
+  var inclusionCheck = function(input) {
     if(input === this.value){
       result = true;
     } else if(input < this.value){
-      helper.call(this.left, input);
+      inclusionCheck.call(this.left, input);
     } else if(input > this.value){
-      helper.call(this.right, input);
+      inclusionCheck.call(this.right, input);
     }
   };
-  helper.call(this, input);
+  inclusionCheck.call(this, input);
   return result;
 };
 
