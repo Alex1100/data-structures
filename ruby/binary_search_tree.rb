@@ -52,7 +52,7 @@ class BinarySearchTree
 
 
 
-  def DFS(input = nil, vals = [])
+  def DFS_to_array(input = nil, vals = [])
     subject = self
 
     if subject.value
@@ -61,12 +61,12 @@ class BinarySearchTree
 
     if subject.left
       input = subject.left.value
-      subject.left.DFS(input, vals)
+      subject.left.DFS_to_array(input, vals)
     end
 
     if subject.right
       input = subject.right.value
-      subject.right.DFS(input, vals)
+      subject.right.DFS_to_array(input, vals)
     end
 
     vals
@@ -83,5 +83,5 @@ BST.contains(10)
 BST.insert(15)
 BST.insert(13)
 BST.insert(20)
-BST.DFL()
+BST.DFS_to_array()
 
