@@ -10,7 +10,8 @@ var BinarySearchTree = function(value) {
 
   newBinarySearchTree.insert = binarySearchTreeMethods.insert;
   newBinarySearchTree.contains = binarySearchTreeMethods.contains;
-  newBinarySearchTree.depthFirstLog = binarySearchTreeMethods.depthFirstLog;
+  newBinarySearchTree.DFSEach = binarySearchTreeMethods.DFSEach;
+  newBinarySearchTree.DFSToArray = binarySearchTreeMethods.DFSToArray;
   newBinarySearchTree.breadthFirstLog = binarySearchTreeMethods.breadthFirstLog;
 
   return newBinarySearchTree;
@@ -39,31 +40,47 @@ binarySearchTreeMethods.insert = function(input){
 binarySearchTreeMethods.contains = function(input){
   var result = false;
 
-  var inclusionCheck = function(input) {
+  var helper = function(input) {
     if(input === this.value){
       result = true;
     } else if(input < this.value){
-      inclusionCheck.call(this.left, input);
+      helper.call(this.left, input);
     } else if(input > this.value){
-      inclusionCheck.call(this.right, input);
+      helper.call(this.right, input);
     }
   };
-  inclusionCheck.call(this, input);
+  helper.call(this, input);
   return result;
 };
 
+
 //linear time complexity O(n)
-binarySearchTreeMethods.DFS = function(input){
+binarySearchTreeMethods.DFSEach = function(input){
   if(this.value){
     input(this.value);
   }
   if(this.left){
-    this.left.DFS(input);
+    this.left.DFSEach(input);
   }
 
   if(this.right){
-    this.right.DFS(input);
+    this.right.DFSEach(input);
   }
+};
+
+//linear time complexity O(n)
+binarySearchTreeMethods.DFSToArray = function(input, vals = []){
+  if(this.value){
+    vals.push(this.value);
+  }
+  if(this.left){
+    this.left.DFSToArray(input, vals);
+  }
+
+  if(this.right){
+    this.right.DFSToArray(input, vals);
+  }
+  return vals;
 };
 
 binarySearchTreeMethods.breadthFirstLog = function(input){
@@ -71,17 +88,19 @@ binarySearchTreeMethods.breadthFirstLog = function(input){
 };
 
 
-
-let valuesArray = [];
-var cbFunc = function(value) { valuesArray.push(value); };
+//all operations on a binary search tree are linear
+let valArray = [];
+var func = function(value) { valArray.push(value*value); };
 
 let BST = new BinarySearchTree(9);
-BST.insert(6)
-BST.insert(5)
-BST.insert(8)
-BST.contains(5)
-BST.insert(15)
-BST.insert(13)
-BST.insert(20)
-BST.contains(20)
-BST.DFS(cbFunc);
+BST.insert(6);
+BST.insert(5);
+BST.insert(8);
+BST.contains(5);
+BST.insert(15);
+BST.insert(13);
+BST.insert(20);
+BST.contains(20);
+BST.DFSToArray();
+BST.DFSEach(func);
+console.log(valArray);
