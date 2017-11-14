@@ -12,6 +12,7 @@ var BinarySearchTree = function(value) {
   newBinarySearchTree.contains = binarySearchTreeMethods.contains;
   newBinarySearchTree.DFSEach = binarySearchTreeMethods.DFSEach;
   newBinarySearchTree.DFSToArray = binarySearchTreeMethods.DFSToArray;
+  newBinarySearchTree.BFSEach = binarySearchTreeMethods.BFSEach;
   newBinarySearchTree.BFSToArray = binarySearchTreeMethods.BFSToArray;
 
   return newBinarySearchTree;
@@ -83,48 +84,52 @@ binarySearchTreeMethods.DFSToArray = function(input, vals = []){
   return vals;
 };
 
-binarySearchTreeMethods.breadthFirstLog = function(input){
 
-};
+binarySearchTreeMethods.BFSEach = function(cb) {
+  var current = [this];
 
+  while (current.length > 0) {
 
-//Works if only the level sorting matters. If levelled and left to right or right left then this implementation doesn't follow left to right ordering pattern or right to left ordering pattern;
-binarySearchTreeMethods.BFSToArray = function(input, vals = [], level = 0, nextNodes = [], seen = {}, maxLen = this.DFSToArray().length) {
+    var next = [];
 
-  if(Object.values(seen).length === maxLen){
-    return;
-  }
+    for (var node of current) {
 
-  if(level > 0){
-    nextNodes = nextNodes.slice(level, level*2);
-    level++;
-  } else {
-    input = this;
-  }
+      cb(node);
 
-
-  if(input.value){
-    if(seen[input.value] === undefined){
-      vals.push(input.value);
-      seen[input.value] = input.value;
-      if(level === 0){
-        level++;
+      if (node.left) {
+        next.push(node.left);
       }
+      if (node.right) {
+        next.push(node.right);
+      }
+
+    current = next;
     }
   }
+}
 
-  if(input.left){
-    nextNodes.push(input.left);
+binarySearchTreeMethods.BFSToArray = function(vals = []){
+  let current = [this];
+
+  while(current.length > 0){
+
+    let next = [];
+
+    for(var node of current) {
+      vals.push(node.value);
+
+      if(node.left){
+        next.push(node.left);
+      }
+
+      if(node.right){
+        next.push(node.right);
+      }
+
+    }
+
+    current = next;
   }
-
-  if(input.right){
-    nextNodes.push(input.right);
-  }
-
-
-  nextNodes.forEach((node, i) => {
-     return this.BFSToArray(input = node, vals, level, nextNodes, seen);
-  });
 
   return vals;
 };
@@ -132,7 +137,9 @@ binarySearchTreeMethods.BFSToArray = function(input, vals = [], level = 0, nextN
 
 //all operations on a binary search tree are linear
 let valArray = [];
-var func = function(value) { valArray.push(value*value); };
+let listArray = [];
+var squareIt = function(value) { valArray.push(value*value); };
+var listNodes = function(node) { listArray.push(node.value);};
 
 let BST = new BinarySearchTree(10);
 BST.insert(9);
@@ -145,7 +152,10 @@ BST.insert(13);
 BST.insert(20);
 BST.contains(20);
 BST.DFSToArray();
-BST.DFSEach(func);
+BST.DFSEach(squareIt);
+console.log(valArray)
 BST.DFSToArray()
 console.log(valArray);
 BST.BFSToArray();
+BST.BFSEach(listNodes);
+console.log(listArray);
