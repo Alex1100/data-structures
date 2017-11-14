@@ -72,3 +72,34 @@ Graph.prototype.forEachNode = function(cb) {
     cb(node);
   }.bind(this));
 };
+
+let zeNewGraph = new Graph();
+
+let squareNodes = function(el){
+  zeNewGraph.addNode(el * el);
+};
+
+
+
+
+
+zeGraph = new Graph();
+
+zeGraph.addNode(1)
+zeGraph.addNode(2)
+zeGraph.contains(2)
+zeGraph.removeNode(2)
+zeGraph.contains(2)
+zeGraph.contains(1)
+zeGraph.addNode(2)
+zeGraph.addNode(3)
+zeGraph.addEdge(3, 2)
+zeGraph.hasEdge(3, 2)
+zeGraph.hasEdge(3, 1)
+zeGraph.addNode(4)
+zeGraph.addNode(5)
+zeGraph.addEdge(5, 4)
+zeGraph.removeEdge(4, 5)
+zeGraph.hasEdge(4, 5)
+zeGraph.forEachNode(squareNodes)
+console.log(zeNewGraph);

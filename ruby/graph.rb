@@ -55,3 +55,25 @@ class Graph
   end
 
 end
+
+
+
+ze_graph = Graph.new()
+
+ze_graph.add_node(1)
+ze_graph.add_node(2)
+ze_graph.contains(2)
+ze_graph.remove_node(2)
+ze_graph.contains(2)
+ze_graph.contains(1)
+ze_graph.add_node(2)
+ze_graph.add_node(3)
+ze_graph.add_edge(3, 2)
+ze_graph.has_edge(3, 2)
+ze_graph.has_edge(3, 1)
+ze_graph.add_node(4)
+ze_graph.add_node(5)
+ze_graph.add_edge(5, 4)
+ze_graph.remove_edge(4, 5)
+ze_graph.has_edge(4, 5)
+p ze_graph
