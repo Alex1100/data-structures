@@ -72,6 +72,49 @@ class BinarySearchTree
     vals
   end
 
+  def BFS_to_array(input = nil, vals = [], level = 0, next_nodes = [], seen = {}, max_len = self.DFS_to_array.length)
+    if seen.keys.length == max_len
+      return
+    end
+
+    if level > 0
+      next_nodes = next_nodes.slice(level, level*2)
+      level = level + 1
+    else
+      input = self
+    end
+
+    if input.value
+      if seen[input.value] == nil
+        vals << input.value
+        seen[input.value] = input.value
+        if level == 0
+          level = level + 1
+        end
+      end
+    end
+
+
+    if input.left
+      next_nodes << input.left
+    end
+
+    if input.right
+      next_nodes << input.right
+    end
+
+    if next_nodes != nil
+      0.upto(next_nodes.length) do |i|
+        p next_nodes[i].class
+        if next_nodes[i].class == BinarySearchTree
+          self.BFS_to_array(input = next_nodes[i], vals, level, next_nodes, seen)
+        end
+      end
+    end
+
+    return vals
+  end
+
 end
 
 BST = BinarySearchTree.new(10)
@@ -84,4 +127,4 @@ BST.insert(15)
 BST.insert(13)
 BST.insert(20)
 BST.DFS_to_array()
-
+BST.BFS_to_array()

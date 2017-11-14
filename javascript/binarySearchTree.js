@@ -134,7 +134,8 @@ binarySearchTreeMethods.BFSToArray = function(input, vals = [], level = 0, nextN
 let valArray = [];
 var func = function(value) { valArray.push(value*value); };
 
-let BST = new BinarySearchTree(9);
+let BST = new BinarySearchTree(10);
+BST.insert(9);
 BST.insert(6);
 BST.insert(5);
 BST.insert(8);
