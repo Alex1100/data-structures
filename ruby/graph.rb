@@ -54,6 +54,28 @@ class Graph
     @data[to_node].delete(@data[to_node][param_1])
   end
 
+
+  def DFSUtil(node, visited, visited_data)
+    visited[node] = true
+    if !visited_data.include?(node)
+      visited_data << node
+    end
+
+    @data[node].each_with_index do |i_node, i|
+      if visited[i] == false
+        self.DFSUtil(i_node, visited, visited_data)
+      end
+    end
+    return visited_data
+  end
+
+
+  def depth_first_search(node)
+    visited = [false] * @nodes_array.length
+    visited_data = []
+    self.DFSUtil(node, visited, visited_data)
+  end
+
 end
 
 
@@ -76,4 +98,18 @@ ze_graph.add_node(5)
 ze_graph.add_edge(5, 4)
 ze_graph.remove_edge(4, 5)
 ze_graph.has_edge(4, 5)
-p ze_graph
+ze_graph.remove_edge(2, 3)
+ze_graph.remove_node(5)
+
+ze_graph.add_node(0)
+ze_graph.add_node(1)
+ze_graph.add_node(2)
+ze_graph.add_node(3)
+ze_graph.add_edge(0, 1)
+ze_graph.add_edge(0, 2)
+ze_graph.add_edge(1, 2)
+ze_graph.add_edge(2, 0)
+ze_graph.add_edge(2, 3)
+ze_graph.add_edge(3, 1)
+p ze_graph.data
+ze_graph.depth_first_search(2)

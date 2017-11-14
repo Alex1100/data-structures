@@ -80,26 +80,43 @@ let squareNodes = function(el){
 };
 
 
+Graph.prototype.DFSUtil = function(node, visited, visited_data) {
+  visited[node] = true;
+  if(!visited_data.includes(node)){
+    visited_data.push(node);
+  }
+
+  this.data[node].forEach((i_node, i) => {
+    if(visited[i] === false){
+      this.DFSUtil(i_node, visited, visited_data);
+    }
+  });
+
+  return visited_data;
+}
+
+
+Graph.prototype.DFS = function(node) {
+  let visited = Array.from(this.nodesArray, x => x = false);
+  let visited_data = [];
+  return this.DFSUtil(node, visited, visited_data);
+}
 
 
 
-zeGraph = new Graph();
 
-zeGraph.addNode(1)
-zeGraph.addNode(2)
-zeGraph.contains(2)
-zeGraph.removeNode(2)
-zeGraph.contains(2)
-zeGraph.contains(1)
-zeGraph.addNode(2)
-zeGraph.addNode(3)
-zeGraph.addEdge(3, 2)
-zeGraph.hasEdge(3, 2)
-zeGraph.hasEdge(3, 1)
-zeGraph.addNode(4)
-zeGraph.addNode(5)
-zeGraph.addEdge(5, 4)
-zeGraph.removeEdge(4, 5)
-zeGraph.hasEdge(4, 5)
-zeGraph.forEachNode(squareNodes)
+
+g = new Graph();
+g.addNode(0);
+g.addNode(1);
+g.addNode(2);
+g.addNode(3);
+g.addEdge(0, 1);
+g.addEdge(0, 2);
+g.addEdge(1, 2);
+g.addEdge(2, 0);
+g.addEdge(2, 3);
+g.addEdge(3, 3);
+g.forEachNode(squareNodes)
 console.log(zeNewGraph);
+g.DFS(2);
