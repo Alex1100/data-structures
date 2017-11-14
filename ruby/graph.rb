@@ -2,7 +2,7 @@ class Graph
 
   attr_accessor :data, :nodes_array, :edges
 
-  def inintialize(data = {}, nodes_array = [], edges = [])
+  def initialize(data = {}, nodes_array = [], edges = [])
     @data, @nodes_array, @edges = data, nodes_array, edges
   end
 
@@ -21,7 +21,7 @@ class Graph
 
   def remove_node(node)
     refs_to_remove = @data[node]
-    delete @data[node]
+    @data.delete(node)
     refs_to_remove.each do |ref|
       if(@data[ref].include?(node))
         item = @data[ref].index(node)
@@ -50,15 +50,8 @@ class Graph
   def remove_edge(from_node, to_node)
     param_1 = @data[from_node].index(to_node)
     param_2 = @data[to_node].index(from_node)
-    delete @data[from_node][param_2]
-    delete @data[to_node][param_1]
+    @data[from_node].delete(@data[from_node][param_2])
+    @data[to_node].delete(@data[to_node][param_1])
   end
 
-  def for_each_node
-    info = ''
-    @nodes_array.each do |node|
-      Proc.new |info|
-      info = node
-      return node
-    end
-  end
+end
