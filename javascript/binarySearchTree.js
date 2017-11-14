@@ -12,7 +12,7 @@ var BinarySearchTree = function(value) {
   newBinarySearchTree.contains = binarySearchTreeMethods.contains;
   newBinarySearchTree.DFSEach = binarySearchTreeMethods.DFSEach;
   newBinarySearchTree.DFSToArray = binarySearchTreeMethods.DFSToArray;
-  newBinarySearchTree.breadthFirstLog = binarySearchTreeMethods.breadthFirstLog;
+  newBinarySearchTree.BFSToArray = binarySearchTreeMethods.BFSToArray;
 
   return newBinarySearchTree;
 };
@@ -88,6 +88,48 @@ binarySearchTreeMethods.breadthFirstLog = function(input){
 };
 
 
+//Works if only the level sorting matters. If levelled and left to right or right left then this implementation doesn't follow left to right ordering pattern or right to left ordering pattern;
+binarySearchTreeMethods.BFSToArray = function(input, vals = [], level = 0, nextNodes = [], seen = {}, maxLen = this.DFSToArray().length) {
+
+  if(Object.values(seen).length === maxLen){
+    return;
+  }
+
+  if(level > 0){
+    nextNodes = nextNodes.slice(level, level*2);
+    level++;
+  } else {
+    input = this;
+  }
+
+
+  if(input.value){
+    if(seen[input.value] === undefined){
+      vals.push(input.value);
+      seen[input.value] = input.value;
+      if(level === 0){
+        level++;
+      }
+    }
+  }
+
+  if(input.left){
+    nextNodes.push(input.left);
+  }
+
+  if(input.right){
+    nextNodes.push(input.right);
+  }
+
+
+  nextNodes.forEach((node, i) => {
+     return this.BFSToArray(input = node, vals, level, nextNodes, seen);
+  });
+
+  return vals;
+};
+
+
 //all operations on a binary search tree are linear
 let valArray = [];
 var func = function(value) { valArray.push(value*value); };
@@ -103,4 +145,6 @@ BST.insert(20);
 BST.contains(20);
 BST.DFSToArray();
 BST.DFSEach(func);
+BST.DFSToArray()
 console.log(valArray);
+BST.BFSToArray();
