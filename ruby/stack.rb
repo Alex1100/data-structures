@@ -12,11 +12,11 @@ class Stack
       @items[0] = item
       @size = @size + 1
     else
-      allItems = @items.values
-      allItems.unshift(item)
+      all_items = @items.values
+      all_items.unshift(item)
       @size = @size + 1
 
-      allItems.each_with_index do |el, i|
+      all_items.each_with_index do |el, i|
         @items[i] = el
       end
     end
