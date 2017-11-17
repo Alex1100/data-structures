@@ -43,17 +43,17 @@ class LinkedList
       p2 = p2.next_in_line
     end
 
-    freshLL = LinkedList.new(nil, nil, 0);
+    freshLL = LinkedList.new(nil, nil, 0)
 
     uniq.each do |el, i|
-      freshLL.add(el);
+      freshLL.add(el)
     end
 
-    @head = nil;
-    @length = nil;
-    @tail = nil;
+    @head = nil
+    @length = nil
+    @tail = nil
 
-    freshLL;
+    freshLL
   end
 
 
