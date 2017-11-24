@@ -62,8 +62,8 @@ class BinarySearchTree:
       input = subject.right.value;
       subject.right.DFS_To_Array(input, vals);
 
-    print(vals);
     return vals;
+
 
   def BFS_To_Array(self, vals = []):
     subject = self;
@@ -96,7 +96,9 @@ coolTree.contains(10);
 coolTree.insert(15);
 coolTree.insert(13);
 coolTree.insert(20);
-print(coolTree.right.right.value);
-print(coolTree.left.value);
-coolTree.DFS_To_Array()
+coolTree.insert(11);
+coolTree.insert(12);
+print("Tree root's right leaf's right leaf value is {:d}".format(coolTree.right.right.value));
+print("Tree root's left leaf's value is {:d}".format(coolTree.left.value));
+print(coolTree.DFS_To_Array())
 coolTree.BFS_To_Array()
