@@ -1,4 +1,4 @@
-class Node
+class DoublyNode
   attr_accessor :data, :next_in_line, :prev
 
   def initialize(data, next_in_line, prev)
@@ -63,7 +63,7 @@ class DoublyLinkedList
 
 
   def add(data)
-    new_node = Node.new(data, nil, nil)
+    new_node = DoublyNode.new(data, nil, nil)
 
     if @head == nil
       @head = new_node
