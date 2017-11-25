@@ -3,7 +3,6 @@ require_relative '../lib/datastructures'
 describe "all datastructures" do
 
   describe BinarySearchTree do
-
     it "tests the insert method on BinarySearchTree" do
       bst = BinarySearchTree.new(10)
       bst.insert(9)
@@ -20,7 +19,6 @@ describe "all datastructures" do
       expect(bst.right.right.value).to eq(20)
       expect(bst.left.left.left.value).to eq(5)
     end
-
 
     it "tests the contains method on BinarySearchTree to be false for non-inclusive nodes" do
       bst = BinarySearchTree.new(10)
@@ -48,7 +46,6 @@ describe "all datastructures" do
       expect(bst.contains(20)).to eq(true)
     end
 
-
     it "tests the DFS_to_array method on BinarySearchTree to convert nodes into an array" do
       bst = BinarySearchTree.new(10)
       bst.insert(9)
@@ -61,7 +58,6 @@ describe "all datastructures" do
 
       expect(bst.DFS_to_array).to eq([10, 9, 6, 5, 8, 15, 13, 20])
     end
-
 
     it "tests the BFS_to_array method on BinarySearchTree to convert nodes into an array" do
       bst = BinarySearchTree.new(10)
@@ -80,7 +76,6 @@ describe "all datastructures" do
 
   describe DoublyLinkedList do
     describe DoublyNode do
-
       it "tests the add method on DoublyLinkedList" do
         dll = DoublyLinkedList.new(nil, nil, 0)
         dll.add(10)
@@ -94,7 +89,6 @@ describe "all datastructures" do
         expect(dll.head.next_in_line.next_in_line.prev.data).to eq(13)
       end
 
-
       it "tests the search_by_position method on DoublyLinkedList" do
         dll = DoublyLinkedList.new(nil, nil, 0)
         dll.add(10)
@@ -106,7 +100,6 @@ describe "all datastructures" do
         expect(dll.search_by_position(3).data).to eq(24)
         expect { dll.search_by_position(4).data }.to raise_error(RuntimeError)
       end
-
 
       it "tests the get item method on DoublyLinkedList" do
         dll = DoublyLinkedList.new(nil, nil, 0)
@@ -120,7 +113,6 @@ describe "all datastructures" do
         expect(dll.get_item(13).next_in_line.data).to eq(24)
         expect { dll.get_item(24).next_in_line.data }.to raise_error(NoMethodError)
       end
-
 
       it "tests the contains method on DoublyLinkedList if included returns true" do
         dll = DoublyLinkedList.new(nil, nil, 0)
@@ -144,7 +136,6 @@ describe "all datastructures" do
         expect(dll.contains(240)).to eq(false)
       end
 
-
       it "tests the remove_by_input method on DoublyLinkedList" do
         dll = DoublyLinkedList.new(nil, nil, 0)
         dll.add(10)
@@ -156,7 +147,6 @@ describe "all datastructures" do
         expect(dll.head.data).to eq(13)
         expect { dll.next_in_line.data }.to raise_error(NoMethodError)
       end
-
 
       it "tests the remove_dups_and_reinitialize method on DoublyLinkedList" do
         dll = DoublyLinkedList.new(nil, nil, 0)
@@ -192,7 +182,6 @@ describe "all datastructures" do
       expect(le_graph.nodes_array).to eq([10, 13, 24])
     end
 
-
     it "tests the remove_node method on Graph" do
       le_graph = Graph.new()
 
@@ -205,7 +194,6 @@ describe "all datastructures" do
       expect(le_graph.nodes_array).to eq([10, 13])
     end
 
-
     it "tests the contains method on Graph for falsy value of non-inclusive node" do
       le_graph = Graph.new()
 
@@ -215,7 +203,6 @@ describe "all datastructures" do
 
       expect(le_graph.contains(100)).to eq false
     end
-
 
     it "tests the contains method on Graph for truthy value of inclusive node" do
       le_graph = Graph.new()
@@ -239,7 +226,6 @@ describe "all datastructures" do
       expect(le_graph.data[10]).to eq([13])
       expect(le_graph.data[13]).to eq([10])
     end
-
 
     it "tests the has_edge method on Graph for falsy value of non-inclusive edge" do
       le_graph = Graph.new()
@@ -339,7 +325,6 @@ describe "all datastructures" do
     end
   end
 
-
   describe Queue do
     le_queue = Queue.new()
 
@@ -353,7 +338,6 @@ describe "all datastructures" do
       expect(le_queue.items[2]).to eq(12)
       le_queue.clear
     end
-
 
     it "tests the dequeue method on Queue" do
       le_queue.enqueue(12)
@@ -384,7 +368,6 @@ describe "all datastructures" do
       le_queue.clear
     end
 
-
     it "tests the peek method on Queue for viewing top of stack without removing it" do
       le_queue.enqueue(12)
       le_queue.enqueue(13)
@@ -393,7 +376,6 @@ describe "all datastructures" do
       expect(le_queue.peek).to eq(12)
       le_queue.clear
     end
-
 
     it "tests the to_array method on Queue" do
       le_queue.enqueue(1)
@@ -418,7 +400,6 @@ describe "all datastructures" do
         expect(ll.head.next_in_line.next_in_line.data).to eq(24)
       end
 
-
       it "tests the search_by_position method on LinkedList" do
         ll = LinkedList.new(nil, nil, 0)
         ll.add(10)
@@ -430,7 +411,6 @@ describe "all datastructures" do
         expect(ll.search_by_position(3).data).to eq(24)
         expect { ll.search_by_position(4).data }.to raise_error(RuntimeError)
       end
-
 
       it "tests the get item method on LinkedList" do
         ll = LinkedList.new(nil, nil, 0)
@@ -444,7 +424,6 @@ describe "all datastructures" do
         expect(ll.get_item(13).next_in_line.data).to eq(24)
         expect { ll.get_item(24).next_in_line.data }.to raise_error(NoMethodError)
       end
-
 
       it "tests the contains method on LinkedList if included returns true" do
         ll = LinkedList.new(nil, nil, 0)
@@ -468,7 +447,6 @@ describe "all datastructures" do
         expect(ll.contains(240)).to eq(false)
       end
 
-
       it "tests the remove_by_input method on LinkedList" do
         ll = LinkedList.new(nil, nil, 0)
         ll.add(10)
@@ -480,7 +458,6 @@ describe "all datastructures" do
         expect(ll.head.data).to eq(13)
         expect { ll.next_in_line.data }.to raise_error(NoMethodError)
       end
-
 
       it "tests the remove_dups_and_reinitialize method on LinkedList" do
         ll = LinkedList.new(nil, nil, 0)
@@ -537,7 +514,6 @@ describe "all datastructures" do
     end
   end
 
-
   describe Stack do
     it "tests the push method on Stack" do
       le_stack = Stack.new()
@@ -573,7 +549,6 @@ describe "all datastructures" do
       le_stack.clear
     end
 
-
     it "tests the is_empty? method on Stack for falsy value when stack.items has more than 0 keys" do
       le_stack = Stack.new()
 
@@ -589,7 +564,6 @@ describe "all datastructures" do
 
       expect(le_stack.is_empty?).to eq true
     end
-
 
     it "tests the stack_size method on Stack" do
       le_stack = Stack.new()
@@ -613,6 +587,54 @@ describe "all datastructures" do
   end
 
   describe Tree do
+    it "tests the add_child method on Tree" do
+      le_tree = Tree.new(10)
+      le_tree.add_child(12)
 
+      expect(le_tree.children[0].value).to eq(12)
+    end
+
+    it "tests the remove_from_parent method on Tree" do
+      le_tree = Tree.new(10)
+      le_tree.add_child(12)
+      le_tree.children[0].add_child(13)
+
+      expect(le_tree.children[0].children[0].value).to eq(13)
+      expect(le_tree.children[0].children.length).to eq(1)
+
+      le_tree.children[0].children[0].remove_from_parent
+      expect(le_tree.children[0].children.length).to eq(0)
+    end
+
+    it "tests the contains method on Tree for falsy values for non-inclusive children" do
+      le_tree = Tree.new(10)
+      le_tree.add_child(12)
+      le_tree.children[0].add_child(13)
+
+      expect(le_tree.contains(24)).to eq false
+    end
+
+    it "tests the contains method on Tree for truthy values for inclusive children" do
+      le_tree = Tree.new(10)
+      le_tree.add_child(12)
+      le_tree.children[0].add_child(13)
+
+      expect(le_tree.contains(12)).to eq true
+    end
+
+    it "tests the traverse method on Tree" do
+      le_tree = Tree.new(10)
+      le_tree.add_child(15)
+      le_tree.add_child(20)
+      le_tree.children[0].add_child('YOOOOOOO')
+      le_tree.contains(10)
+      le_tree.contains(15)
+      le_tree.contains(11)
+      le_tree.contains('YOOOOOOO')
+      le_tree.children[0].children[0].remove_from_parent
+      le_tree.contains('YOOOOOOO')
+
+      expect(le_tree.traverse).to eq([10, 15, 20])
+    end
   end
 end
