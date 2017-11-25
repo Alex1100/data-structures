@@ -345,8 +345,12 @@ describe "all datastructures" do
 
     it "tests the enqueue method on Queue" do
       le_queue.enqueue(12)
+      le_queue.enqueue(13)
+      le_queue.enqueue(14)
 
-      expect(le_queue.items[0]).to eq(12)
+      expect(le_queue.items[0]).to eq(14)
+      expect(le_queue.items[1]).to eq(13)
+      expect(le_queue.items[2]).to eq(12)
       le_queue.clear
     end
 
@@ -536,7 +540,75 @@ describe "all datastructures" do
 
   describe Stack do
     it "tests the push method on Stack" do
+      le_stack = Stack.new()
 
+      le_stack.push(1)
+      le_stack.push(2)
+      le_stack.push(3)
+
+      expect(le_stack.items).to eq({0=>3, 1=>2, 2=>1})
+      le_stack.clear
+    end
+
+    it "tests the pop method on Stack" do
+      le_stack = Stack.new()
+
+      le_stack.push(1)
+      le_stack.push(2)
+      le_stack.push(3)
+      le_stack.pop
+
+      expect(le_stack.items).to eq({0=>2, 1=>1})
+      le_stack.clear
+    end
+
+    it "tests the peek method on Stack" do
+      le_stack = Stack.new()
+
+      le_stack.push(1)
+      le_stack.push(2)
+      le_stack.push(3)
+
+      expect(le_stack.peek).to eq(3)
+      le_stack.clear
+    end
+
+
+    it "tests the is_empty? method on Stack for falsy value when stack.items has more than 0 keys" do
+      le_stack = Stack.new()
+
+      le_stack.push(1)
+      le_stack.push(2)
+      le_stack.push(3)
+
+      expect(le_stack.is_empty?).to eq false
+    end
+
+    it "tests the is_empty? method on Stack for truthy value when stack.items has more than 0 keys" do
+      le_stack = Stack.new()
+
+      expect(le_stack.is_empty?).to eq true
+    end
+
+
+    it "tests the stack_size method on Stack" do
+      le_stack = Stack.new()
+
+      le_stack.push(1)
+      le_stack.push(2)
+      le_stack.push(3)
+
+      expect(le_stack.stack_size).to eq(3)
+    end
+
+    it "tests the to_array method on Stack" do
+      le_stack = Stack.new()
+
+      le_stack.push(1)
+      le_stack.push(2)
+      le_stack.push(3)
+
+      expect(le_stack.to_array).to eq([3, 2, 1])
     end
   end
 
