@@ -366,17 +366,16 @@ class LimitedArray
     @storage[idx] = value
   end
 
-  def each
+  def each(some_method)
     @storage.each_with_index do |item, i|
-      Proc.new do |storage|
-        storage = @storage
-        return storage[i], i, storage
-      end
+      @storage[i] = some_method.call(item, i)
     end
+
+    @storage
   end
 
   def check_limit(idx)
-    if idx.class != Fixnum
+    if idx.class != Integer
       raise "Setter requires a numeric index for its first argument"
     end
 
@@ -450,7 +449,7 @@ class Queue
 
 
   def to_array
-    @items.values
+    @items.values.reverse
   end
 
 end

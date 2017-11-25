@@ -317,12 +317,88 @@ describe "all datastructures" do
 
 
   describe LimitedArray do
+    lim_arr = LimitedArray.new(10)
+    lim_arr.set(0, 'Hello')
 
+    it "tests the set method on LimitedArray" do
+      lim_arr.set(1, 'Yo')
+
+      expect(lim_arr.storage[1]).to eq('Yo')
+    end
+
+    it "tests the get method on LimitedArray" do
+      expect(lim_arr.get(0)).to eq('Hello')
+    end
+
+    it "tests the each method on LimitedArray" do
+      def square_it(element, idx)
+        element[1].length * element[1].length
+      end
+
+      expect(lim_arr.each(method(:square_it))).to eq({0=>25, 1=>4})
+    end
   end
 
 
   describe Queue do
+    le_queue = Queue.new()
 
+    it "tests the enqueue method on Queue" do
+      le_queue.enqueue(12)
+
+      expect(le_queue.items[0]).to eq(12)
+      le_queue.clear
+    end
+
+
+    it "tests the dequeue method on Queue" do
+      le_queue.enqueue(12)
+      le_queue.enqueue(13)
+      le_queue.enqueue(14)
+      le_queue.dequeue
+      le_queue.dequeue
+
+      expect(le_queue.items).to eq({0=>14})
+      le_queue.clear
+    end
+
+    it "tests the contains method on Queue for falsy value for non-inclusive items" do
+      le_queue.enqueue(12)
+      le_queue.enqueue(13)
+      le_queue.enqueue(14)
+
+      expect(le_queue.contains(20)).to eq false
+      le_queue.clear
+    end
+
+    it "tests the contains method on Queue for truthy value for inclusive items" do
+      le_queue.enqueue(12)
+      le_queue.enqueue(13)
+      le_queue.enqueue(14)
+
+      expect(le_queue.contains(13)).to eq true
+      le_queue.clear
+    end
+
+
+    it "tests the peek method on Queue for viewing top of stack without removing it" do
+      le_queue.enqueue(12)
+      le_queue.enqueue(13)
+      le_queue.enqueue(14)
+
+      expect(le_queue.peek).to eq(12)
+      le_queue.clear
+    end
+
+
+    it "tests the to_array method on Queue" do
+      le_queue.enqueue(1)
+      le_queue.enqueue(2)
+      le_queue.enqueue(3)
+      le_queue.enqueue(4)
+
+      expect(le_queue.to_array).to eq([1, 2, 3, 4])
+    end
   end
 
   describe LinkedList do
