@@ -403,13 +403,141 @@ describe "all datastructures" do
 
   describe LinkedList do
     describe SinglyNode do
+      it "tests the add method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
 
+        expect(ll.head.data).to eq(10)
+        expect(ll.head.next_in_line.data).to eq(13)
+        expect(ll.head.next_in_line.next_in_line.data).to eq(24)
+      end
+
+
+      it "tests the search_by_position method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+
+        expect(ll.search_by_position(1).data).to eq(10)
+        expect(ll.search_by_position(2).data).to eq(13)
+        expect(ll.search_by_position(3).data).to eq(24)
+        expect { ll.search_by_position(4).data }.to raise_error(RuntimeError)
+      end
+
+
+      it "tests the get item method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+
+        expect(ll.get_item(10)).to_not eq(nil)
+        expect(ll.get_item(13)).to_not eq(nil)
+        expect(ll.get_item(10).next_in_line.data).to eq(13)
+        expect(ll.get_item(13).next_in_line.data).to eq(24)
+        expect { ll.get_item(24).next_in_line.data }.to raise_error(NoMethodError)
+      end
+
+
+      it "tests the contains method on LinkedList if included returns true" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+
+        expect(ll.contains(10)).to eq(true)
+        expect(ll.contains(13)).to eq(true)
+        expect(ll.contains(24)).to eq(true)
+      end
+
+      it "tests the contains method on LinkedList if not included returns false" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+
+        expect(ll.contains(100)).to eq(false)
+        expect(ll.contains(130)).to eq(false)
+        expect(ll.contains(240)).to eq(false)
+      end
+
+
+      it "tests the remove_by_input method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+
+        ll.remove_by_input(10)
+        ll.remove_by_input(24)
+        expect(ll.head.data).to eq(13)
+        expect { ll.next_in_line.data }.to raise_error(NoMethodError)
+      end
+
+
+      it "tests the remove_dups_and_reinitialize method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+        ll.add(13)
+        ll.add(10)
+        ll.add(24)
+        ll.add(5)
+        ll.add(6)
+        ll.add(5)
+        ll = ll.remove_dups_and_reinitialize
+
+        expect(ll.head.data).to eq(10)
+        expect(ll.head.next_in_line.data).to eq(13)
+        expect(ll.head.next_in_line.next_in_line.data).to eq(24)
+        expect(ll.head.next_in_line.next_in_line.next_in_line.data).to eq(5)
+        expect(ll.head.next_in_line.next_in_line.next_in_line.next_in_line.data).to eq(6)
+      end
+
+      it "tests the find_before method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+        ll.add(13)
+        ll.add(10)
+        ll.add(24)
+        ll.add(5)
+        ll.add(6)
+        ll.add(5)
+        ll = ll.remove_dups_and_reinitialize
+
+        expect(ll.find_before(24).data).to eq(13)
+      end
+
+      it "tests the remove_by_position method on LinkedList" do
+        ll = LinkedList.new(nil, nil, 0)
+        ll.add(10)
+        ll.add(13)
+        ll.add(24)
+        ll.add(13)
+        ll.add(10)
+        ll.add(24)
+        ll.add(5)
+        ll.add(6)
+        ll.add(5)
+        ll = ll.remove_dups_and_reinitialize
+        ll.remove_by_position(2)
+
+        expect(ll.contains(13)).to eq false
+      end
     end
   end
 
 
   describe Stack do
+    it "tests the push method on Stack" do
 
+    end
   end
 
   describe Tree do
