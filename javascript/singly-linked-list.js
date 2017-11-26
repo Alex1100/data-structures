@@ -1,18 +1,18 @@
-let Node = function(data){
+let SinglyNode = function(data){
   this.data = data;
   this.next = null;
 };
 
 
 
-let LinkedList = function(){
+let SinglyLinkedList = function(){
   this.head = null;
   this.length = 0;
   this.tail = null;
 };
 
 
-LinkedList.prototype.removeDupsAndReInitialize = function(){
+SinglyLinkedList.prototype.removeDupsAndReInitialize = function(){
   if (!this.head || !this.head.next) {
     throw new Error('No duplicates were found. Empty or a single element Linked List.');
   }
@@ -38,7 +38,7 @@ LinkedList.prototype.removeDupsAndReInitialize = function(){
     p2 = p2.next;
   }
 
-  let freshLL = new LinkedList();
+  let freshLL = new SinglyLinkedList();
 
   for(let i = 0; i < uniq.length; i++){
     freshLL.add(uniq[i]);
@@ -56,8 +56,8 @@ LinkedList.prototype.removeDupsAndReInitialize = function(){
 };
 
 
-LinkedList.prototype.add = function(data){
-  let newNode = new Node(data);
+SinglyLinkedList.prototype.add = function(data){
+  let newNode = new SinglyNode(data);
 
   if(this.head === null){
     this.head = newNode;
@@ -80,7 +80,7 @@ LinkedList.prototype.add = function(data){
 };
 
 
-LinkedList.prototype.searchByPosition = function(position){
+SinglyLinkedList.prototype.searchByPosition = function(position){
   let currentNode = this.head;
   let length = this.length;
   let count = 1;
@@ -99,7 +99,7 @@ LinkedList.prototype.searchByPosition = function(position){
 };
 
 
-LinkedList.prototype.get = function(input){
+SinglyLinkedList.prototype.get = function(input){
   var current = this.head;
   while(current !== null){
     if(current.data === input){
@@ -111,13 +111,13 @@ LinkedList.prototype.get = function(input){
 };
 
 
-LinkedList.prototype.contains = function(input) {
+SinglyLinkedList.prototype.contains = function(input) {
   return this.get(input) === null ? false : true;
 };
 
 
 
-LinkedList.prototype.remove = function(position){
+SinglyLinkedList.prototype.remove = function(position){
   let currentNode = this.head;
   let length = this.length;
   let count = 0;
@@ -153,4 +153,10 @@ LinkedList.prototype.remove = function(position){
 
   return deletedNode;
 };
+
+
+module.exports = {
+  SinglyLinkedList,
+  SinglyNode
+}
 

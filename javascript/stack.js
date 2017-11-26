@@ -99,3 +99,7 @@ Stack.prototype.clear = function(){
 Stack.prototype.stackSize = function(){
   return this.size;
 }
+
+module.exports = {
+  Stack
+}

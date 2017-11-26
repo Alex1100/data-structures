@@ -113,20 +113,25 @@ treeMethods.traverseAndMap = function(){
 };
 
 
-let valArray = [];
-var squareIt = function(value) { valArray.push(value*value); };
+// let valArray = [];
+// var squareIt = function(value) { valArray.push(value*value); };
 
 
-let abc = new Tree(10);
-abc.addChild(15);
-abc.addChild(20)
-abc.children[0].addChild('YOOOOOOO')
-abc.contains(10)
-abc.contains(15)
-abc.contains(11)
-abc.contains('YOOOOOOO')
-abc.children[0].children[0].removeFromParent
-abc.contains('YOOOOOOO')
-abc.traverse(squareIt);
-console.log(valArray);
-abc.traverseAndMap();
+// let abc = new Tree(10);
+// abc.addChild(15);
+// abc.addChild(20)
+// abc.children[0].addChild('YOOOOOOO')
+// abc.contains(10)
+// abc.contains(15)
+// abc.contains(11)
+// abc.contains('YOOOOOOO')
+// abc.children[0].children[0].removeFromParent
+// abc.contains('YOOOOOOO')
+// abc.traverse(squareIt);
+// console.log(valArray);
+// abc.traverseAndMap();
+
+module.exports = {
+  treeMethods,
+  Tree
+}

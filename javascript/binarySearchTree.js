@@ -136,26 +136,32 @@ binarySearchTreeMethods.BFSToArray = function(vals = []){
 
 
 //all operations on a binary search tree are linear
-let valArray = [];
-let listArray = [];
-var squareIt = function(value) { valArray.push(value*value); };
-var listNodes = function(node) { listArray.push(node.value);};
+// let valArray = [];
+// let listArray = [];
+// var squareIt = function(value) { valArray.push(value*value); };
+// var listNodes = function(node) { listArray.push(node.value);};
 
-let BST = new BinarySearchTree(10);
-BST.insert(9);
-BST.insert(6);
-BST.insert(5);
-BST.insert(8);
-BST.contains(5);
-BST.insert(15);
-BST.insert(13);
-BST.insert(20);
-BST.contains(20);
-BST.DFSToArray();
-BST.DFSEach(squareIt);
-console.log(valArray)
-BST.DFSToArray()
-console.log(valArray);
-BST.BFSToArray();
-BST.BFSEach(listNodes);
-console.log(listArray);
+// let BST = new BinarySearchTree(10);
+// BST.insert(9);
+// BST.insert(6);
+// BST.insert(5);
+// BST.insert(8);
+// BST.contains(5);
+// BST.insert(15);
+// BST.insert(13);
+// BST.insert(20);
+// BST.contains(20);
+// BST.DFSToArray();
+// BST.DFSEach(squareIt);
+// console.log(valArray)
+// BST.DFSToArray()
+// console.log(valArray);
+// BST.BFSToArray();
+// BST.BFSEach(listNodes);
+// console.log(listArray);
+
+
+module.exports = {
+  binarySearchTreeMethods,
+  BinarySearchTree
+}

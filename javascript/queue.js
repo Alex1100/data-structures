@@ -92,3 +92,8 @@ Queue.prototype.peek = function(){
 Queue.prototype.ToArray = function(){
   return Object.keys(this.items).map(el => this.items[el]);
 }
+
+
+module.exports = {
+  Queue
+}

@@ -1,0 +1,16 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "binarySearchTree.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Alex1100 <alex100.software@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-jest": "^21.2.0",
+    "jest": "^21.2.1",
+    "regenerator-runtime": "^0.11.0"
+  }
+}

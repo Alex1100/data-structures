@@ -1,17 +1,17 @@
-let Node = function(data){
+let DoublyNode = function(data){
   this.data = data;
   this.next = null;
 };
 
 
-let LinkedList = function(){
+let DoublyLinkedList = function(){
   this.head = null;
   this.length = 0;
   this.tail = null;
 };
 
 
-LinkedList.prototype.removeDupsAndReInitialize = function(){
+DoublyLinkedList.prototype.removeDupsAndReInitialize = function(){
   if (!this.head || !this.head.next) {
     throw new Error('No duplicates were found. Empty or a single element Linked List.');
   }
@@ -37,7 +37,7 @@ LinkedList.prototype.removeDupsAndReInitialize = function(){
     p2 = p2.next;
   }
 
-  let freshLL = new LinkedList();
+  let freshLL = new DoublyLinkedList();
 
   for(let i = 0; i < uniq.length; i++){
     freshLL.add(uniq[i]);
@@ -54,8 +54,8 @@ LinkedList.prototype.removeDupsAndReInitialize = function(){
 };
 
 
-LinkedList.prototype.add = function(data){
-  let newNode = new Node(data);
+DoublyLinkedList.prototype.add = function(data){
+  let newNode = new DoublyNode(data);
 
   if(this.head === null){
     this.head = newNode;
@@ -82,7 +82,7 @@ LinkedList.prototype.add = function(data){
 };
 
 
-LinkedList.prototype.searchByPosition = function(position){
+DoublyLinkedList.prototype.searchByPosition = function(position){
   let currentNode = this.head;
   let length = this.length;
   let count = 1;
@@ -101,7 +101,7 @@ LinkedList.prototype.searchByPosition = function(position){
 };
 
 
-LinkedList.prototype.get = function(input){
+DoublyLinkedList.prototype.get = function(input){
   var current = this.head;
   while(current !== null){
     if(current.data === input){
@@ -113,12 +113,12 @@ LinkedList.prototype.get = function(input){
 };
 
 
-LinkedList.prototype.contains = function(input) {
+DoublyLinkedList.prototype.contains = function(input) {
   return this.get(input) === null ? false : true;
 };
 
 
-LinkedList.prototype.removeByInput = function(input){
+DoublyLinkedList.prototype.removeByInput = function(input){
   var target = this.get(input);
   if(target === null){
     return target;
@@ -146,3 +146,9 @@ LinkedList.prototype.removeByInput = function(input){
   this.length--;
   return target;
 };
+
+
+module.exports = {
+  DoublyNode,
+  DoublyLinkedList
+}

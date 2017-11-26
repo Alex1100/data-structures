@@ -1,4 +1,4 @@
-let Node = function(data){
+let CircularDoublyNode = function(data){
   this.data = data;
   this.next = null;
 };
@@ -58,7 +58,7 @@ CircularDoublyLinkedList.prototype.removeDupsAndReInitialize = function(){
 
 
 CircularDoublyLinkedList.prototype.add = function(data){
-  let newNode = new Node(data);
+  let newNode = new CircularDoublyNode(data);
 
   if(this.head === null){
     this.head = newNode;
@@ -153,4 +153,9 @@ CircularDoublyLinkedList.prototype.removeByInput = function(input){
 
   this.length--;
   return target;
+}
+
+module.exports = {
+  CircularDoublyLinkedList,
+  CircularDoublyNode
 }

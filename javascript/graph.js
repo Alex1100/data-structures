@@ -106,17 +106,23 @@ Graph.prototype.DFS = function(node) {
 
 
 
-g = new Graph();
-g.addNode(0);
-g.addNode(1);
-g.addNode(2);
-g.addNode(3);
-g.addEdge(0, 1);
-g.addEdge(0, 2);
-g.addEdge(1, 2);
-g.addEdge(2, 0);
-g.addEdge(2, 3);
-g.addEdge(3, 3);
-g.forEachNode(squareNodes)
-console.log(zeNewGraph);
-g.DFS(2);
+// g = new Graph();
+// g.addNode(0);
+// g.addNode(1);
+// g.addNode(2);
+// g.addNode(3);
+// g.addEdge(0, 1);
+// g.addEdge(0, 2);
+// g.addEdge(1, 2);
+// g.addEdge(2, 0);
+// g.addEdge(2, 3);
+// g.addEdge(3, 3);
+// g.forEachNode(squareNodes)
+// console.log(zeNewGraph);
+// g.DFS(2);
+
+
+
+module.exports = {
+  Graph
+}
