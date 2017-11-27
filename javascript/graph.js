@@ -61,8 +61,8 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 Graph.prototype.removeEdge = function(fromNode, toNode) {
   var param1 = this.data[fromNode].indexOf(toNode);
   var param2 = this.data[toNode].indexOf(fromNode);
-  delete this.data[fromNode][param2];
-  delete this.data[toNode][param1];
+  this.data[fromNode] = this.data[fromNode].filter((el, i) => i !== param1);
+  this.data[toNode] = this.data[toNode].filter((el, i) => i !== param2);
 };
 
 //linear time complexity O(n)
