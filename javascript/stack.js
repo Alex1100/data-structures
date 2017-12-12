@@ -1,104 +1,104 @@
 //ES5 Version of Stack
 //Last In Last Out
-// let Stack = function() {
-//   this.items = {};
-//   this.size = 0;
-// }
+let Stack = function() {
+  this.items = {};
+  this.size = 0;
+}
 
 
-// //Push Function
-// //Inserts a new object
-// //to the top of the stack
-// //without returning it
+//Push Function
+//Inserts a new object
+//to the top of the stack
+//without returning it
 
-// Stack.prototype.push = function(item){
-//   if(this.size === 0) {
-//     this.items[this.size] = item;
-//     this.size++;
+Stack.prototype.push = function(item){
+  if(this.size === 0) {
+    this.items[this.size] = item;
+    this.size++;
 
-//   } else {
-//     let allItems = Object.keys(this.items).map(el => this.items[el]);
-//     allItems.unshift(item);
-//     this.size++;
+  } else {
+    let allItems = Object.keys(this.items).map(el => this.items[el]);
+    allItems.unshift(item);
+    this.size++;
 
-//     for(let i = 0; i < allItems.length; i++){
-//       this.items[i] = allItems[i]
-//     }
-//   }
-// }
-
-
-// //Pop Function
-// //Removes and returns the
-// //object at the top of the stack
-
-// Stack.prototype.pop = function(){
-//   let topObject;
-
-//   let allItems = Object.keys(this.items).map((el, i) => {
-//     if(i !== 0){
-//       return this.items[el]
-//     } else {
-//       topObject = this.items[el];
-//     }
-//   });
-
-//   allItems.shift();
-
-//   for(let z = 0; z < allItems.length; z++){
-//     this.items[z] = allItems[z];
-//   }
-
-//   delete this.items[this.size - 1];
-//   this.size--;
-
-//   return topObject;
-// }
+    for(let i = 0; i < allItems.length; i++){
+      this.items[i] = allItems[i]
+    }
+  }
+}
 
 
-// //Peek Function
-// //Returns the object at the top
-// //of the stack without removing
-// //it
+//Pop Function
+//Removes and returns the
+//object at the top of the stack
 
-// Stack.prototype.peek = function(){
-//   return this.items[0];
-// }
+Stack.prototype.pop = function(){
+  let topObject;
 
+  let allItems = Object.keys(this.items).map((el, i) => {
+    if(i !== 0){
+      return this.items[el]
+    } else {
+      topObject = this.items[el];
+    }
+  });
 
-// //ToArray Function
-// //Copies the stack to a new Array
+  allItems.shift();
 
-// Stack.prototype.ToArray = function(){
-//   return Object.keys(this.items).map(el => this.items[el]);
-// }
+  for(let z = 0; z < allItems.length; z++){
+    this.items[z] = allItems[z];
+  }
 
+  delete this.items[this.size - 1];
+  this.size--;
 
-// //isEmpty Function
-// //Checks to see if stack is
-// //empty
-
-// Stack.prototype.isEmpty = function(){
-//   return this.size === 0 ? true : false;
-// }
-
-
-// //Clear Function
-// //Removes all objects from
-// //The stack
-// Stack.prototype.clear = function(){
-//   this.items = {};
-//   this.size = 0;
-// }
+  return topObject;
+}
 
 
-// //StackSize Function
-// //Returns the size of the
-// //current stack
+//Peek Function
+//Returns the object at the top
+//of the stack without removing
+//it
 
-// Stack.prototype.stackSize = function(){
-//   return this.size;
-// }
+Stack.prototype.peek = function(){
+  return this.items[0];
+}
+
+
+//ToArray Function
+//Copies the stack to a new Array
+
+Stack.prototype.ToArray = function(){
+  return Object.keys(this.items).map(el => this.items[el]);
+}
+
+
+//isEmpty Function
+//Checks to see if stack is
+//empty
+
+Stack.prototype.isEmpty = function(){
+  return this.size === 0 ? true : false;
+}
+
+
+//Clear Function
+//Removes all objects from
+//The stack
+Stack.prototype.clear = function(){
+  this.items = {};
+  this.size = 0;
+}
+
+
+//StackSize Function
+//Returns the size of the
+//current stack
+
+Stack.prototype.stackSize = function(){
+  return this.size;
+}
 
 // module.exports = {
 //   Stack
@@ -106,61 +106,61 @@
 
 
 //ES6 Version of Stack
-class Stack {
-  constructor() {
-    this.items = {};
-    this.size = 0;
-    this.push = this.push;
-    this.pop = this.pop;
-  }
+// class Stack {
+//   constructor() {
+//     this.items = {};
+//     this.size = 0;
+//     this.push = this.push;
+//     this.pop = this.pop;
+//   }
 
-  push(item) {
-    if(this.size === 0) {
-      this.items[this.size] = item;
-      this.size++;
+//   push(item) {
+//     if(this.size === 0) {
+//       this.items[this.size] = item;
+//       this.size++;
 
-    } else {
-      let allItems = Object.keys(this.items).map(el => this.items[el]);
-      allItems.unshift(item);
-      this.size++;
+//     } else {
+//       let allItems = Object.keys(this.items).map(el => this.items[el]);
+//       allItems.unshift(item);
+//       this.size++;
 
-      for(let i = 0; i < allItems.length; i++){
-        this.items[i] = allItems[i]
-      }
-    }
-  }
+//       for(let i = 0; i < allItems.length; i++){
+//         this.items[i] = allItems[i]
+//       }
+//     }
+//   }
 
-  pop() {
-    if(this.size === 0) {
-      return 0;
-    }
+//   pop() {
+//     if(this.size === 0) {
+//       return 0;
+//     }
 
-    let topObject;
+//     let topObject;
 
-    let allItems = Object.keys(this.items).map((el, i) => {
-      if(i !== 0){
-        return this.items[el]
-      } else {
-        topObject = this.items[el];
-      }
-    });
+//     let allItems = Object.keys(this.items).map((el, i) => {
+//       if(i !== 0){
+//         return this.items[el]
+//       } else {
+//         topObject = this.items[el];
+//       }
+//     });
 
-    allItems.shift();
+//     allItems.shift();
 
-    for(let z = 0; z < allItems.length; z++){
-      this.items[z] = allItems[z];
-    }
+//     for(let z = 0; z < allItems.length; z++){
+//       this.items[z] = allItems[z];
+//     }
 
-    delete this.items[this.size - 1];
-    this.size--;
+//     delete this.items[this.size - 1];
+//     this.size--;
 
-    return topObject;
-  }
+//     return topObject;
+//   }
 
-  size() {
-    return this.size;
-  }
-}
+//   size() {
+//     return this.size;
+//   }
+// }
 
 
 module.exports = Stack;

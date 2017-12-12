@@ -1,96 +1,96 @@
 //ES5 Version of Queue
 //First In First Out
-// let Queue = function(){
-//   this.items = {};
-//   this.size = 0;
-// }
+let Queue = function(){
+  this.items = {};
+  this.size = 0;
+}
 
 
-// //Enqueue Function
-// //Adds to the end of the queue
+//Enqueue Function
+//Adds to the end of the queue
 
-// Queue.prototype.Enqueue = function(item){
-//   if(this.size === 0) {
-//     this.items[0] = item;
-//     this.size++;
-//   } else {
-//     let allItems = Object.keys(this.items).map(el => this.items[el]);
-//     allItems.unshift(item);
+Queue.prototype.Enqueue = function(item){
+  if(this.size === 0) {
+    this.items[0] = item;
+    this.size++;
+  } else {
+    let allItems = Object.keys(this.items).map(el => this.items[el]);
+    allItems.unshift(item);
 
-//     for(let i = 0; i < allItems.length; i++){
-//       this.items[i] = allItems[i]
-//     }
+    for(let i = 0; i < allItems.length; i++){
+      this.items[i] = allItems[i]
+    }
 
-//     this.size++;
-//   }
-// }
-
-
-// //Dequeue Function
-// //Adds to the end of the queue
-
-// Queue.prototype.Dequeue = function(){
-//   let firstInQueue;
-//   let allItems = Object.keys(this.items).map(el => this.items[el]);
-//   firstInQueue = allItems[allItems.length - 1];
-//   allItems = allItems.slice(0, allItems.length - 1);
-
-//   for(let i = 0; i < allItems.length - 1; i++){
-//     this.items[i] = allItems[i];
-//   }
-
-//   delete this.items[this.size-1];
-//   this.size--;
-
-//   return firstInQueue;
-// }
+    this.size++;
+  }
+}
 
 
+//Dequeue Function
+//Adds to the end of the queue
 
-// //Contains Function
-// //Performs a Linear Search to determine if
-// //The item is within the Queue
+Queue.prototype.Dequeue = function(){
+  let firstInQueue;
+  let allItems = Object.keys(this.items).map(el => this.items[el]);
+  firstInQueue = allItems[allItems.length - 1];
+  allItems = allItems.slice(0, allItems.length - 1);
 
-// Queue.prototype.contains = function(item){
-//   let found = false;
+  for(let i = 0; i < allItems.length - 1; i++){
+    this.items[i] = allItems[i];
+  }
 
-//   Object.keys(this.items).map(el => {
-//     if(this.items[el] === item){
-//       found = true;
-//     }
-//   });
+  delete this.items[this.size-1];
+  this.size--;
 
-//   return found;
-// }
-
-
-// //Clear Function
-// //Removes all items from
-// //the Queue
-
-// Queue.prototype.clear = function(){
-//   this.items = {};
-//   this.size = 0;
-// }
+  return firstInQueue;
+}
 
 
-// //Peek Function
-// //Returns the Object
-// //at the beginning of the Queue
-// //without removing it
 
-// Queue.prototype.peek = function(){
-//   console.log(this);
-//   return this.items[this.size - 1];
-// }
+//Contains Function
+//Performs a Linear Search to determine if
+//The item is within the Queue
+
+Queue.prototype.contains = function(item){
+  let found = false;
+
+  Object.keys(this.items).map(el => {
+    if(this.items[el] === item){
+      found = true;
+    }
+  });
+
+  return found;
+}
 
 
-// //ToArray Function
-// //Copies the queue to a new Array
+//Clear Function
+//Removes all items from
+//the Queue
 
-// Queue.prototype.ToArray = function(){
-//   return Object.keys(this.items).map(el => this.items[el]);
-// }
+Queue.prototype.clear = function(){
+  this.items = {};
+  this.size = 0;
+}
+
+
+//Peek Function
+//Returns the Object
+//at the beginning of the Queue
+//without removing it
+
+Queue.prototype.peek = function(){
+  console.log(this);
+  return this.items[this.size - 1];
+}
+
+
+//ToArray Function
+//Copies the queue to a new Array
+
+Queue.prototype.ToArray = function(){
+  return Object.keys(this.items).map(el => this.items[el]);
+}
 
 
 // module.exports = {
@@ -101,55 +101,55 @@
 
 
 //ES6 Version of Queue
-class Queue {
-  constructor() {
-    this.items = {};
-    this.size = 0;
-    this.enqueue;
-    this.dequeue;
-  }
+// class Queue {
+//   constructor() {
+//     this.items = {};
+//     this.size = 0;
+//     this.enqueue;
+//     this.dequeue;
+//   }
 
-  enqueue(item) {
-    if(this.size === 0) {
-      this.items[0] = item;
-      this.size++;
-    } else {
-      let allItems = Object.keys(this.items).map(el => this.items[el]);
-      allItems.unshift(item);
+//   enqueue(item) {
+//     if(this.size === 0) {
+//       this.items[0] = item;
+//       this.size++;
+//     } else {
+//       let allItems = Object.keys(this.items).map(el => this.items[el]);
+//       allItems.unshift(item);
 
-      for(let i = 0; i < allItems.length; i++){
-        this.items[i] = allItems[i]
-      }
+//       for(let i = 0; i < allItems.length; i++){
+//         this.items[i] = allItems[i]
+//       }
 
-      this.size++;
-    }
-  }
+//       this.size++;
+//     }
+//   }
 
-  dequeue() {
+//   dequeue() {
 
-    if(this.size === 0) {
-      return 0;
-    }
+//     if(this.size === 0) {
+//       return 0;
+//     }
 
-    let firstInQueue;
-    let allItems = Object.keys(this.items).map(el => this.items[el]);
-    firstInQueue = allItems[allItems.length - 1];
-    allItems = allItems.slice(0, allItems.length - 1);
+//     let firstInQueue;
+//     let allItems = Object.keys(this.items).map(el => this.items[el]);
+//     firstInQueue = allItems[allItems.length - 1];
+//     allItems = allItems.slice(0, allItems.length - 1);
 
-    for(let i = 0; i < allItems.length - 1; i++){
-      this.items[i] = allItems[i];
-    }
+//     for(let i = 0; i < allItems.length - 1; i++){
+//       this.items[i] = allItems[i];
+//     }
 
-    delete this.items[this.size-1];
-    this.size--;
+//     delete this.items[this.size-1];
+//     this.size--;
 
-    return firstInQueue;
-  }
+//     return firstInQueue;
+//   }
 
-  size() {
-    return this.size;
-  }
-}
+//   size() {
+//     return this.size;
+//   }
+// }
 
 
 module.exports = Queue;

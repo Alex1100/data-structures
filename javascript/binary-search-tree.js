@@ -1,3 +1,4 @@
+//ES6
 class BinarySearchTree {
   constructor(value) {
     this.value = value;
