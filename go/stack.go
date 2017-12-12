@@ -30,16 +30,18 @@ func (s *Stack) Push(item string) {
 		s.Items[key] = item
 		s.Size += 1
 	} else {
-		var allItems []string
-		allItems = make([]string, s.Size)
+		allItems := []string{item}
 
-		for _, v := range s.Items {
-			allItems = append(allItems, v)
+		for _, value := range s.Items {
+			allItems = append(allItems, value)
 		}
 
-		allItems = allItems[1:len(allItems)]
-		allItems = append([]string{item}, allItems...)
 		s.Size += 1
+
+		for i, _ := range s.Items {
+			delete(s.Items, i)
+		}
+
 		for i, v := range allItems {
 			k := strconv.Itoa(i)
 			s.Items[k] = v
@@ -53,17 +55,14 @@ func (s *Stack) Peek() string {
 }
 
 func (s *Stack) Pop() string {
-	var allItems []string
-	var poppedItem string
+	var poppedItem string = s.Items["0"]
+	allItems := []string{}
 
-	allItems = make([]string, s.Size)
-
-	for _, v := range s.Items {
-		allItems = append(allItems, v)
+	for _, value := range s.Items {
+		if value != s.Items["0"] {
+			allItems = append(allItems, value)
+		}
 	}
-
-	allItems = allItems[2:len(allItems)]
-	poppedItem = allItems[0]
 
 	for k, _ := range s.Items {
 		delete(s.Items, k)
@@ -116,9 +115,17 @@ func main() {
 	oo.IsEmpty()
 	oo.Clear()
 	oo.IsEmpty()
-	oo.Push("Hello")
-	oo.Push("Yoo")
+	oo.Push("--3i-ii")
+	oo.ToArray()
+	oo.Push("nlnon")
+	oo.ToArray()
+	oo.Push("HELLO")
+	oo.ToArray()
+	oo.Push("TERE")
+	oo.ToArray()
 	oo.Pop()
+	oo.ToArray()
 	oo.Pop()
+	oo.ToArray()
 	oo.IsEmpty()
 }
