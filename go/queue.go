@@ -1,20 +1,42 @@
 package main
 
 import (
+	"encoding/hex"
 	"fmt"
+	"log"
 	"strconv"
 )
 
 type Queue struct {
 	ItemsInfo  string
-	Items      map[string]string
+	Items      map[string][]byte
 	ItemsComma string
 	SizeInfo   string
 	Size       int64
 }
 
+func ToHex(s string) []byte {
+	a := []byte(s)
+	dst := make([]byte, hex.EncodedLen(len(a)))
+	hex.Encode(dst, a)
+
+	//To hex
+	return dst
+}
+
+func FromHexToString(b []byte) string {
+	dst := make([]byte, hex.DecodedLen(len(b)))
+	z, err := hex.Decode(dst, b)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//To string
+	return string(dst[:z])
+}
+
 func InitQueue() *Queue {
-	var items = make(map[string]string)
+	var items = make(map[string][]byte)
 	return &Queue{
 		ItemsInfo:  "items:",
 		Items:      items,
@@ -27,22 +49,18 @@ func InitQueue() *Queue {
 func (q *Queue) Enqueue(item string) {
 	if q.Size == 0 {
 		key := strconv.Itoa(0)
-		q.Items[key] = item
+		q.Items[key] = ToHex(item)
 		q.Size += 1
 	} else {
-		var allItems []string
-		var count int = 0
-		allItems = make([]string, q.Size+1)
+		var allItems [][]byte
+		allItems = make([][]byte, (q.Size))
 
 		for _, v := range q.Items {
-			if len(v) > 0 {
-				allItems = append(allItems, v)
-			}
+			allItems = append(allItems, v)
+			allItems = allItems[1:len(allItems)]
 		}
 
-		allItems = allItems[2:len(allItems)]
-
-		allItems = append([]string{item}, allItems...)
+		allItems = append([][]byte{ToHex(item)}, allItems...)
 
 		q.Size += 1
 
@@ -51,48 +69,26 @@ func (q *Queue) Enqueue(item string) {
 		}
 
 		for i, v := range allItems {
-			k := strconv.Itoa((i - count))
-			if len(v) > 0 {
-				q.Items[k] = v
-			} else {
-				count += 1
-			}
+			k := strconv.Itoa(i)
+			q.Items[k] = v
 		}
 	}
 }
 
-/*
-
-first_in_queue = ''
-all_items = @items.values
-first_in_queue = all_items.last
-ze_items = all_items[0..all_items.length - 1]
-
-ze_items.each_with_index do |el , i|
-  @items[i] = el
-end
-
-@items.delete(@size - 1)
-@size = @size - 1
-first_in_queue
-
-
-*/
-
 func (q *Queue) Dequeue() string {
-	var allItems []string
-	var remainingItems []string
+	var allItems [][]byte
+	var remainingItems [][]byte
 	var poppedItem string
 	var count int = 0
 
-	allItems = make([]string, q.Size-1)
+	allItems = make([][]byte, q.Size-1)
 
 	for _, v := range q.Items {
 		allItems = append(allItems, v)
 	}
 
 	allItems = allItems[1 : len(allItems)-1]
-	poppedItem = q.Items["0"]
+	poppedItem = FromHexToString(q.Items["0"])
 	remainingItems = allItems[1:len(allItems)]
 
 	for k, _ := range q.Items {
@@ -110,7 +106,7 @@ func (q *Queue) Dequeue() string {
 		}
 	}
 
-	fmt.Println(poppedItem)
+	fmt.Printf("%s", poppedItem)
 	return poppedItem
 }
 
@@ -134,7 +130,7 @@ func (q *Queue) QueueSize() int64 {
 func (q *Queue) ToArray() [][]string {
 	var keyValArr [][]string
 	for k, v := range q.Items {
-		keyValArr = append(keyValArr, []string{k, v})
+		keyValArr = append(keyValArr, []string{k, FromHexToString(v)})
 	}
 	fmt.Println(keyValArr)
 	return keyValArr
@@ -143,15 +139,31 @@ func (q *Queue) ToArray() [][]string {
 func main() {
 	oo := InitQueue()
 	oo.Enqueue("hello")
+	oo.ToArray()
 	oo.Enqueue("1234")
+	oo.ToArray()
 	oo.Enqueue("3344")
+	oo.ToArray()
+	oo.Enqueue("52345")
+	oo.ToArray()
+	oo.Enqueue("1344")
+	oo.ToArray()
+	oo.Enqueue("charlie")
+	oo.ToArray()
 	oo.Dequeue()
-	fmt.Println("OO IS NOW: ", oo)
 	oo.Enqueue("8888")
-	fmt.Println("OO IS NOW: ", oo)
+	oo.ToArray()
 	oo.Enqueue("AYYOOO")
+	oo.ToArray()
 	oo.Enqueue("NOOOOOO")
-	fmt.Println("OO IS NOW: ", oo)
+	oo.ToArray()
+	oo.QueueSize()
+	oo.IsEmpty()
+	oo.Clear()
+	oo.IsEmpty()
 }
 
-//SOMETHING IS STILL NOT WORKING PERFECTLY
+//Still running into a sorting issue
+//golang's seems to do some auto sorting
+//internally and it's messing up the
+//algo
