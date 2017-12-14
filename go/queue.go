@@ -69,6 +69,7 @@ func (q *Queue) Enqueue(item string) {
 		}
 
 		for i, v := range allItems {
+			// fmt.Println("CHEKING CHECKING: ", i, v)
 			k := strconv.Itoa(i)
 			q.Items[k] = v
 		}
@@ -77,19 +78,24 @@ func (q *Queue) Enqueue(item string) {
 
 func (q *Queue) Dequeue() string {
 	var allItems [][]byte
-	var remainingItems [][]byte
+	// 	var remainingItems [][]byte
 	var poppedItem string
 	var count int = 0
 
-	allItems = make([][]byte, q.Size-1)
+	allItems = make([][]byte, 1)
 
-	for _, v := range q.Items {
-		allItems = append(allItems, v)
+	for i, v := range q.Items {
+		// fmt.Println("CHECKER CHECKER: ", i, v)
+		if i != "0" {
+			allItems = append(allItems, v)
+		}
 	}
 
-	allItems = allItems[1 : len(allItems)-1]
+	allItems = allItems[1:len(allItems)]
+
+	fmt.Println("ALL ITEMS ARE: ", allItems)
 	poppedItem = FromHexToString(q.Items["0"])
-	remainingItems = allItems[1:len(allItems)]
+	// 	remainingItems = allItems[1:len(allItems)]
 
 	for k, _ := range q.Items {
 		delete(q.Items, k)
@@ -97,7 +103,8 @@ func (q *Queue) Dequeue() string {
 
 	q.Size -= 1
 
-	for i, v := range remainingItems {
+	for i, v := range allItems {
+		fmt.Println("CHECK CHECK: ", v)
 		k := strconv.Itoa((i - count))
 		if len(v) > 0 {
 			q.Items[k] = v
@@ -106,7 +113,7 @@ func (q *Queue) Dequeue() string {
 		}
 	}
 
-	fmt.Printf("%s", poppedItem)
+	fmt.Printf("%s\n", poppedItem)
 	return poppedItem
 }
 
@@ -130,6 +137,7 @@ func (q *Queue) QueueSize() int64 {
 func (q *Queue) ToArray() [][]string {
 	var keyValArr [][]string
 	for k, v := range q.Items {
+		fmt.Println(k, FromHexToString(v))
 		keyValArr = append(keyValArr, []string{k, FromHexToString(v)})
 	}
 	fmt.Println(keyValArr)
@@ -146,24 +154,9 @@ func main() {
 	oo.ToArray()
 	oo.Enqueue("52345")
 	oo.ToArray()
-	oo.Enqueue("1344")
-	oo.ToArray()
-	oo.Enqueue("charlie")
-	oo.ToArray()
-	oo.Dequeue()
-	oo.Enqueue("8888")
-	oo.ToArray()
-	oo.Enqueue("AYYOOO")
-	oo.ToArray()
-	oo.Enqueue("NOOOOOO")
-	oo.ToArray()
-	oo.QueueSize()
-	oo.IsEmpty()
-	oo.Clear()
-	oo.IsEmpty()
+
 }
 
-//Still running into a sorting issue
-//golang's seems to do some auto sorting
-//internally and it's messing up the
-//algo
+//GOLANG MAPS DON'T KEEP INSERTION ORDER WHEN ITERATING OVER A MAP WITH MORE THAN 4 ENTRIES... SO I NEED TO USE SLICES INSTEAD OF MAPS FOR THE NEXT IMPLEMENTATION
+//I TRIED TO HEX STRING INPUTS TO AVOID AUTO SORTING
+//GOLANG INTERNALS....
