@@ -7,14 +7,14 @@ import (
 
 type Stack struct {
 	ItemsInfo  string
-	Items      map[string]string
+	Items      [][]string
 	ItemsComma string
 	SizeInfo   string
-	Size       int64
+	Size       int
 }
 
 func InitStack() *Stack {
-	var items = make(map[string]string)
+	var items = make([][]string, 1)
 	return &Stack{
 		ItemsInfo:  "items:",
 		Items:      items,
@@ -27,63 +27,58 @@ func InitStack() *Stack {
 func (s *Stack) Push(item string) {
 	if s.Size == 0 {
 		key := strconv.Itoa(0)
-		s.Items[key] = item
+		s.Items[0] = []string{key, item}
 		s.Size += 1
 	} else {
-		allItems := []string{item}
 
-		for _, value := range s.Items {
-			allItems = append(allItems, value)
+		var allItems [][]string
+		var newAllItems [][]string
+		allItems = make([][]string, 0)
+
+		for i := 0; i < len(s.Items); i++ {
+			allItems = append(allItems, []string{strconv.Itoa((i + 1)), s.Items[i][1]})
 		}
+
+		newItemIndex := strconv.Itoa(0)
+		newAllItems = make([][]string, 0)
+		newAllItems = append(newAllItems, []string{newItemIndex, item})
+
+		allItems = append(newAllItems, allItems...)
 
 		s.Size += 1
-
-		for i, _ := range s.Items {
-			delete(s.Items, i)
-		}
-
-		for i, v := range allItems {
-			k := strconv.Itoa(i)
-			s.Items[k] = v
-		}
+		s.Items = allItems
 	}
 }
 
-func (s *Stack) Peek() string {
-	fmt.Println(s.Items["0"])
-	return s.Items["0"]
+func (s *Stack) Peek() []string {
+	fmt.Println(s.Items[0])
+	return s.Items[0]
 }
 
-func (s *Stack) Pop() string {
-	var poppedItem string = s.Items["0"]
-	allItems := []string{}
-
-	for _, value := range s.Items {
-		if value != s.Items["0"] {
-			allItems = append(allItems, value)
-		}
+func (s *Stack) Pop() ([]string, error) {
+	if s.Size <= 0 {
+		return nil, nil
 	}
 
-	for k, _ := range s.Items {
-		delete(s.Items, k)
+	var poppedItem []string = s.Items[0]
+	var allItems [][]string
+
+	allItems = make([][]string, 0)
+
+	for i := 1; i < len(s.Items); i++ {
+		allItems = append(allItems, []string{strconv.Itoa((i - 1)), s.Items[i][1]})
 	}
 
+	s.Items = allItems
 	s.Size -= 1
 
-	for i, v := range allItems {
-		k := strconv.Itoa(i)
-		s.Items[k] = v
-	}
-
 	fmt.Println(poppedItem)
-	return poppedItem
+	return poppedItem, nil
 }
 
 func (s *Stack) Clear() {
 	s.Size = 0
-	for k, _ := range s.Items {
-		delete(s.Items, k)
-	}
+	s.Items = make([][]string, 1)
 }
 
 func (s *Stack) IsEmpty() bool {
@@ -91,18 +86,9 @@ func (s *Stack) IsEmpty() bool {
 	return s.Size == 0
 }
 
-func (s *Stack) StackSize() int64 {
+func (s *Stack) StackSize() int {
 	fmt.Println(s.Size)
 	return s.Size
-}
-
-func (s *Stack) ToArray() [][]string {
-	var keyValArr [][]string
-	for k, v := range s.Items {
-		keyValArr = append(keyValArr, []string{k, v})
-	}
-	fmt.Println(keyValArr)
-	return keyValArr
 }
 
 func main() {
@@ -110,22 +96,21 @@ func main() {
 	oo.Push("hello")
 	oo.Peek()
 	oo.Push("yoo")
+	oo.Push("COOL")
+	fmt.Println(oo.Items)
 	oo.Peek()
-	oo.ToArray()
 	oo.IsEmpty()
 	oo.Clear()
 	oo.IsEmpty()
 	oo.Push("--3i-ii")
-	oo.ToArray()
 	oo.Push("nlnon")
-	oo.ToArray()
 	oo.Push("HELLO")
-	oo.ToArray()
 	oo.Push("TERE")
-	oo.ToArray()
+	fmt.Println(oo.Items)
 	oo.Pop()
-	oo.ToArray()
+	fmt.Println(oo.Items)
 	oo.Pop()
-	oo.ToArray()
+	oo.Pop()
+	oo.Pop()
 	oo.IsEmpty()
 }

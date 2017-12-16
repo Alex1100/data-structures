@@ -51,10 +51,6 @@ func (q *Queue) Enqueue(item string) {
 	}
 }
 
-func first(args ...interface{}) interface{} {
-	return args[0]
-}
-
 func (q *Queue) Dequeue() []string {
 	var poppedItem []string
 	var newItems [][]string
