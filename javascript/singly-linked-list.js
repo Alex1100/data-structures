@@ -143,6 +143,7 @@ SinglyLinkedList.prototype.remove = function(position){
   while(count < position) {
     beforeNodeToDelete = currentNode;
     nodeToDelete = currentNode.next;
+    currentNode = nodeToDelete;
     count++;
   }
 
