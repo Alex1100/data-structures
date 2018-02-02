@@ -32,7 +32,7 @@ func InitNode(key interface{}) *SinglyNode {
 	}
 }
 
-func InitSinglyLikedList(key interface{}) *SinglyLinkedList {
+func InitSinglyLinkedList(key interface{}) *SinglyLinkedList {
 	newNode := InitNode(key)
 	return &SinglyLinkedList{
 		HeadInfo:  "Head:",
@@ -171,7 +171,7 @@ func (s *SinglyLinkedList) RemoveByKey(key interface{}) interface{} {
 }
 
 func main() {
-	ll := InitSinglyLikedList("I am root")
+	ll := InitSinglyLinkedList("I am root")
 	ll.AddToList(1)
 	ll.AddToList(2)
 	fmt.Println(ll.Head.Next.Next)
