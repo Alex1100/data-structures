@@ -77,7 +77,7 @@ func (b *BinarySearchTree) Contains(input int) bool {
 }
 
 func (b *BinarySearchTree) DepthFirstToArray(v []int) []int {
-	if b.Value >= 0 {
+	if b.Value <= 0 || b.Value > 0 {
 		v = append(v, b.Value)
 	}
 
@@ -126,6 +126,9 @@ func main() {
 	fmt.Println(bt)
 	bt.Insert(110)
 	bt.Insert(20)
+  bt.Insert(-10)
+  bt.Insert(-11)
+  bt.Insert(6)
 	bt.Insert(5)
 	bt.Insert(135)
 	fmt.Println(bt.Contains(20))
