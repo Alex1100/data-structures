@@ -50,36 +50,36 @@ func InitGraph(key interface{}) *Graph {
   c = append(c, key);
   a[key] = b;
   
-  Val := &DataValueStruct{Value: a}
-  NodeVal := &NodesValueStruct{Value: c}
-  EdgesVal := &EdgesValStruct{Value: d}
+  Val := &DataValueStruct{Value: a};
+  NodeVal := &NodesValueStruct{Value: c};
+  EdgesVal := &EdgesValStruct{Value: d};
   
   DataInstance := &DataStruct{
     DataInfo: "Data:",
     DataValue: Val,
     DataComma: ",",
-  }
+  };
   
   NodeInstance := &Node{
     NodesArrayInfo: "NodesArray:",
     NodesArray: NodeVal,
     NodesArrayComma: ",",
-  }
+  };
   
   EdgesInstance := &EdgesStruct{
     EdgesInfo: "Edges:",
     Edges: EdgesVal,
-  }
+  };
   
   return &Graph{
     Data: DataInstance,
     Nodes: NodeInstance,
     Edges: EdgesInstance,
-  }
+  };
 }
 
 func main() {
   go_graph := InitGraph("hello");
   
-  fmt.Println("\nSHOULD RETURN TRUE: ", "hello" == go_graph.Data.DataValue.Value["hello"][0])
+  fmt.Println("\nSHOULD RETURN TRUE: ", "hello" == go_graph.Data.DataValue.Value["hello"][0]);
 }
