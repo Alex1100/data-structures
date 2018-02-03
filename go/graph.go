@@ -10,9 +10,6 @@ type Graph struct {
   DataComma string
   NodesArrayInfo  string
   Nodes []interface{}
-  NodesArrayComma string
-  EdgesInfo string
-  Edges []interface{}
 }
 
 type gph *Graph
@@ -20,10 +17,8 @@ type gph *Graph
 func InitGraph(node interface{}) *Graph {
   d := make(map[interface{}][]interface{});
   c := make([]interface{}, 0);
-  a := make([]interface{}, 0);
   b := make([]interface{}, 0);
   c = append(c, node);
-  b = append(b, node);
   d[node] = b;
 
   return &Graph{
@@ -32,9 +27,6 @@ func InitGraph(node interface{}) *Graph {
     DataComma: ",",
     NodesArrayInfo: "NodesArray:",
     Nodes: b,
-    NodesArrayComma: ",",
-    EdgesInfo: "Edges:",
-    Edges: a,
   };
 }
 
@@ -42,7 +34,6 @@ func InitGraph(node interface{}) *Graph {
 func (g *Graph) AddNode(node interface{}) {
   if g.Data[node] == nil {
     newNode := make([]interface{}, 0);
-    newNode = append(newNode, node);
     g.Data[node] = newNode;
     g.Nodes = append(g.Nodes, node);
   } else {
@@ -50,18 +41,102 @@ func (g *Graph) AddNode(node interface{}) {
   }
 }
 
+func (g *Graph) Contains(node interface{}) bool {
+  if g.Data[node] != nil {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+func (g *Graph) RemoveNode(node interface{}) (interface{}, error) {
+  if g.Data[node] == nil {
+    return nil, "Doesn't exist";
+  }
+
+  newNodesArray := make([]interface{}, 0);
+  
+  for _, ref := range g.Data[node] {
+    newDataRef := make([]interface{}, 0)
+    for _, element := range g.Data[ref] {
+      if element != node {
+        newDataRef = append(newDataRef, node);
+      }
+    }
+    g.Data[ref] = newDataRef
+  }
+  
+  for _, element := range g.Nodes {
+    if element != node {
+      newNodesArray = append(newNodesArray, element)
+    }
+  }
+  
+  g.Nodes = newNodesArray
+  
+  delete(g.Data, node);
+  return node, nil;
+}
+
+func (g *Graph) HasEdge(fromNode, toNode interface{}) bool {
+  for _, node := range g.Data[fromNode] {
+    if node == toNode {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+func (g *Graph) AddEdge(fromNode, toNode interface{}) (*Graph, error) {
+  if g.Data[fromNode] == nil || g.Data[toNode] == nil {
+    return nil, nil
+  }
+  g.Data[fromNode] = append(g.Data[fromNode], toNode)
+  g.Data[toNode] = append(g.Data[toNode], fromNode)
+  return g, nil;
+}
+
+func (g *Graph) RemoveEdge(fromNode, toNode interface{}) (*Graph, error) {
+  if g.Data[fromNode] == nil || g.Data[toNode] == nil {
+    return nil, nil
+  }
+  newFromNodeArray := make([]interface{}, 0);
+  newToNodeArray := make([]interface{}, 0);
+
+  for _, element := range g.Data[fromNode] {
+    if element != toNode {
+      newFromNodeArray = append(newFromNodeArray, element);
+    }
+  }
+  
+  for _, element := range g.Data[toNode] {
+    if element != fromNode {
+      newToNodeArray = append(newToNodeArray, element);
+    }
+  }
+  
+  g.Data[fromNode] = newFromNodeArray;
+  g.Data[toNode] = newToNodeArray;
+  return g, nil;
+}
+
+
+
 func main() {
   go_graph := InitGraph("hello");
   fmt.Println(go_graph)
-  fmt.Println("\nSHOULD RETURN TRUE: ", "hello" == go_graph.Data["hello"][0]);
-  fmt.Println("\nNEWLY ADDED NODE IS: ", go_graph.Nodes[len(go_graph.Nodes) - 1]);
-  
   go_graph.AddNode("bye");
-  
   fmt.Println("\nNEWLY ADDED NODE IS: ", go_graph.Nodes[len(go_graph.Nodes) - 1]);
-  fmt.Println("\nSHOULD RETURN TRUE: ", go_graph.Data);
-  
-  go_graph.AddNode("bye");
-  
-  fmt.Println("\nSHOULD RETURN TRUE: ", go_graph.Data);
+  fmt.Println(go_graph.Contains("hello"))
+  fmt.Println(go_graph.HasEdge("hello", "bye"));
+  fmt.Println(go_graph.RemoveNode("hello"))
+  fmt.Println(go_graph)
+  fmt.Println(go_graph.AddEdge("hello", "bye"))
+  fmt.Println(go_graph)
+  go_graph.AddNode("hello")
+  go_graph.AddEdge("hello", "bye")
+  fmt.Println(go_graph)
+  go_graph.RemoveEdge("hello", "bye")
+  fmt.Println(go_graph);
 }
